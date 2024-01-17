@@ -1,0 +1,17 @@
+{
+  "name": "data-stream-expressjs-native-auth-wrapper-template",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "@multiversx/sdk-native-auth-server": "^1.0.7",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": "18"
+  }
+}
