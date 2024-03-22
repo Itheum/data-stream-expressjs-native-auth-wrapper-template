@@ -25,11 +25,25 @@ router.get("/datastream", async function (req, res) {
 
   let accessToken = req.headers.authorization;
 
+  // Make sure the Native Auth token is sent
   if (!accessToken) {
     return res.status(403).json({
       error: true,
       errorMessage:
         "Access Forbidden as this is a protected Data Stream. No credentials sent!",
+    });
+  }
+
+  // OPTIONAL, may be needed if you are using the Data NFT-PF standard and are NOT doing any Native Auth address + token ID validation.
+  // ... here we make sure the caller's NFT token ID is from your NFT collection
+  const callersNFTTokenID = req.headers["itm-marshal-fwd-tokenid"]; // caller's NFT token ID as sent by the Data Marshal network
+  const allowedNFTCollectionID = "DNFTPHNAUT-f3f22a"; // your collection ID
+
+  if (!callersNFTTokenID.includes(allowedNFTCollectionID)) {
+    return res.status(401).json({
+      error: true,
+      errorMessage:
+        "Access Forbidden as this is a protected Data Stream. Unsupported Data NFT-PH Collection!",
     });
   }
 
